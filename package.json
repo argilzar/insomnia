@@ -1,6 +1,6 @@
 {
   "name": "the-source-public-webhook-sink",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "author": "",
   "private": true,
@@ -18,7 +18,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "proto": "protoc --proto_path=./src/assets/messages --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=emitImportedFiles=true --ts_proto_opt=nestJs=true --ts_proto_opt=addNestjsRestParameter=true --ts_proto_out=./src/messages ./src/assets/**/*.proto"
+    "proto": "protoc --proto_path=./src/assets/messages --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=emitImportedFiles=true --ts_proto_opt=nestJs=true --ts_proto_opt=addNestjsRestParameter=true --ts_proto_out=./src/messages ./src/assets/**/*.proto",
+    "predocker": "yarn build",
+    "docker": "docker build . -t the-source-public-webhook-sink:$(cat package.json | jq -r .version)"
   },
   "dependencies": {
     "@jbiskur/nestjs-async-module": "3.7.0",
