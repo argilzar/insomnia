@@ -2,16 +2,13 @@ import {
   BadRequestException,
   Body,
   Controller,
-  Headers,
   Param,
   Post,
   Query,
-  UnauthorizedException,
 } from "@nestjs/common";
 import { InjectLogger } from "../logger/decorator/logger.decorator";
 import { LoggerService } from "../logger/logger/logger.service";
 import * as _ from "lodash";
-import { SimpleAuthenticatorService } from "../simple-authenticator/simple-authenticator.service";
 import { PublicWebhookSinkService } from "./public-webhook-sink.service";
 
 @Controller()
@@ -19,7 +16,6 @@ export class PublicWebhookSinkController {
   constructor(
     @InjectLogger(PublicWebhookSinkController.name)
     private readonly logger: LoggerService,
-    private readonly authentication: SimpleAuthenticatorService,
     private readonly sinkService: PublicWebhookSinkService,
   ) {}
 
