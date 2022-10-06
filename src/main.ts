@@ -7,6 +7,7 @@ import { ConfigService } from "@nestjs/config";
 async function bootstrap() {
   const logger = createSimpleLogger(configuration());
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
+  app.enableCors();
   app.useLogger(logger);
 
   const config = await app.resolve(ConfigService);

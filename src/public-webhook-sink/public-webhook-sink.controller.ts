@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Headers,
   Param,
   Post,
   Query,
@@ -24,7 +25,7 @@ export class PublicWebhookSinkController {
     @Param("aggregator") aggregator: string,
     @Param("eventType") eventType: any,
     @Body() event: any,
-    @Query("Identifier") identifier: string,
+    @Headers("Identifier") identifier: string,
     @Query("validTime") validTime?: Date,
   ) {
     if (_.isEmpty(identifier)) {

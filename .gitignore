@@ -34,3 +34,6 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 /src/assets/authorized_keys.json
+
+# Env
+.env
