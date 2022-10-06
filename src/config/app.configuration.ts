@@ -11,6 +11,10 @@ export const configuration = () => ({
     servers: process.env.NATS_SERVERS.split(","),
     queue: process.env.NATS_QUEUE,
   },
+  dataMesh: {
+    retention: process.env.DATA_MESH_RETENTION,
+    producerId: process.env.DATA_MESH_PRODUCER_ID,
+  },
 });
 
 export const validation = Joi.object({
@@ -22,4 +26,6 @@ export const validation = Joi.object({
   LOG_LEVEL_LABELS: Joi.boolean().default(false),
   NATS_SERVERS: Joi.string().default("nats://localhost:4222"),
   NATS_QUEUE: Joi.string().default("ingestion-channel"),
+  DATA_MESH_RETENTION: Joi.string().default("7d"),
+  DATA_MESH_PRODUCER_ID: Joi.string().required(),
 });

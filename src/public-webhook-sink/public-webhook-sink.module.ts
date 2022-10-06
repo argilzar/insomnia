@@ -12,7 +12,6 @@ import {
 } from "@nestjs/microservices";
 import { PublicWebhookSinkService } from "./public-webhook-sink.service";
 import { PublicWebhookSinkController } from "./public-webhook-sink.controller";
-import { SimpleAuthenticatorService } from "../simple-authenticator/simple-authenticator.service";
 
 const optionsToken = createOptionsToken();
 
@@ -30,7 +29,6 @@ const optionsToken = createOptionsToken();
         }),
     },
     PublicWebhookSinkService,
-    SimpleAuthenticatorService,
   ],
   controllers: [PublicWebhookSinkController],
 })

@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Headers,
@@ -27,35 +28,33 @@ export class PublicWebhookSinkController {
     @Param("aggregator") aggregator: string,
     @Param("eventType") eventType: any,
     @Body() event: any,
-    @Headers("Authorization") authorization: string,
+    @Query("Identifier") identifier: string,
     @Query("validTime") validTime?: Date,
   ) {
-    if (_.isEmpty(authorization)) {
-      this.logger.error("No authorization header found");
-      throw new UnauthorizedException("No authorization header found");
+    if (_.isEmpty(identifier)) {
+      this.logger.error("No Identifier header found");
+      throw new BadRequestException("No Identifier header found");
     }
 
-    const validKey = this.authentication.validate(authorization);
-
-    if (!validKey) {
-      this.logger.error("Invalid authorization key");
-      throw new UnauthorizedException("Invalid authorization key");
-    }
+    //TODO: validate Identifier header against a valid data mesh identifier
 
     this.logger.debug(
-      `Received event ${eventType} for ${validKey.dataMesh}/${aggregator}`,
+      `Received event ${eventType} for ${identifier}/${aggregator}`,
       event,
     );
 
     if (!event || !_.isPlainObject(event) || _.isEmpty(event)) {
       this.logger.error(
-        `Invalid event ${eventType} for ${validKey.dataMesh}/${aggregator}`,
+        `Invalid event ${eventType} for ${identifier}/${aggregator}`,
         event,
+      );
+      throw new BadRequestException(
+        `Invalid event ${eventType} for ${identifier}/${aggregator}`,
       );
     }
 
     await this.sinkService.storeEvent(
-      validKey,
+      identifier,
       aggregator,
       eventType,
       event,
