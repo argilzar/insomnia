@@ -11,6 +11,8 @@ import { InjectLogger } from "../logger/decorator/logger.decorator";
 import { LoggerService } from "../logger/logger/logger.service";
 import * as _ from "lodash";
 import { PublicWebhookSinkService } from "./public-webhook-sink.service";
+import { ModuleOptions } from "@jbiskur/nestjs-async-module";
+import { PublicWebhookSinkOptions } from "./public-webhook-sink-options.interface";
 
 @Controller()
 export class PublicWebhookSinkController {
@@ -18,6 +20,7 @@ export class PublicWebhookSinkController {
     @InjectLogger(PublicWebhookSinkController.name)
     private readonly logger: LoggerService,
     private readonly sinkService: PublicWebhookSinkService,
+    private readonly options: ModuleOptions<PublicWebhookSinkOptions>,
   ) {}
 
   @Post("/:aggregator/:eventType")
@@ -25,31 +28,23 @@ export class PublicWebhookSinkController {
     @Param("aggregator") aggregator: string,
     @Param("eventType") eventType: any,
     @Body() event: any,
-    @Headers("Identifier") identifier: string,
     @Query("validTime") validTime?: Date,
   ) {
-    if (_.isEmpty(identifier)) {
-      this.logger.error("No Identifier header found");
-      throw new BadRequestException("No Identifier header found");
-    }
-
-    //TODO: validate Identifier header against a valid data mesh identifier
-
     this.logger.debug(
-      `Received event ${eventType} for ${identifier}/${aggregator}`,
+      `Received event ${eventType} for analytics/${aggregator}`,
       event,
     );
 
     if (!event || !_.isPlainObject(event) || _.isEmpty(event)) {
       this.logger.error(
-        `Invalid event ${eventType} for ${identifier}/${aggregator}`,
+        `Invalid event ${eventType} for analytics/${aggregator}`,
         event,
       );
       throw new BadRequestException(
-        `Invalid event ${eventType} for ${identifier}/${aggregator}`,
+        `Invalid event ${eventType} for analytics/${aggregator}`,
       );
     }
-
+    const identifier = this.options.get().producerId;
     await this.sinkService.storeEvent(
       identifier,
       aggregator,

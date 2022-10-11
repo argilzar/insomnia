@@ -26,6 +26,6 @@ export const validation = Joi.object({
   LOG_LEVEL_LABELS: Joi.boolean().default(false),
   NATS_SERVERS: Joi.string().default("nats://localhost:4222"),
   NATS_QUEUE: Joi.string().default("ingestion-channel"),
-  DATA_MESH_RETENTION: Joi.string().default("7d"),
+  DATA_MESH_RETENTION: Joi.string().default("365d"),
   DATA_MESH_PRODUCER_ID: Joi.string().required(),
 });

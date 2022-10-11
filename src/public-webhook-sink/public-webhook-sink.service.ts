@@ -5,6 +5,7 @@ import {
   EVENT_INGESTION_TOPIC,
   METADATA_PRODUCER_NAME,
   METADATA_TTL_ON_STORED_EVENT,
+  NOTIFY_ON_STORED_EVENT,
 } from "../constants";
 import { ChannelEvent } from "../messages/channel-event";
 import * as dayjs from "dayjs";
@@ -33,6 +34,7 @@ export class PublicWebhookSinkService {
     const metadata = {} as { [key: string]: string };
     metadata[METADATA_PRODUCER_NAME] = this.options.get().producerId;
     metadata[METADATA_TTL_ON_STORED_EVENT] = this.calculateTTL().toString();
+    metadata[NOTIFY_ON_STORED_EVENT] = "true";
 
     this.logger.debug(
       `Storing event ${eventType} for ${aggregator} at ${dayjs()
