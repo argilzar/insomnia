@@ -1,10 +1,10 @@
 _id: req_80d9b21cd0bc4ca28467f55725844c56
 type: Request
 parentId: wrk_877517df32e44731b0708aacc3a6132d
-modified: 1665911793218
+modified: 1665912003675
 created: 1665435392670
 url: http://{{ _.host }}:{{ _.port }}/a.fo/event
-name: New Request
+name: PlausibleFormat
 description: ""
 method: POST
 body:
