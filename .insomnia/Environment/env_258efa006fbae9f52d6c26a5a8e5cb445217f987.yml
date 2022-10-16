@@ -1,0 +1,16 @@
+_id: env_258efa006fbae9f52d6c26a5a8e5cb445217f987
+type: Environment
+parentId: wrk_877517df32e44731b0708aacc3a6132d
+modified: 1665911853821
+created: 1665911727598
+name: Base Environment
+data:
+  host: localhost
+  port: 3000
+dataPropertyOrder:
+  "&":
+    - host
+    - port
+color: null
+isPrivate: false
+metaSortKey: 1665911727598
