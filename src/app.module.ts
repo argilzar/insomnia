@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { CacheModule, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { configuration, validation } from "./config/app.configuration";
 import { LoggerModuleBuilder } from "./logger/builder/logger-module.builder";
@@ -22,6 +22,7 @@ const config = ConfigModule.forRoot({
         retention: configService.get<string>("dataMesh.retention"),
       }),
     }),
+    CacheModule.register({ ttl: 60 * 60 * 24, isGlobal: true }),
   ],
   controllers: [],
   providers: [],
