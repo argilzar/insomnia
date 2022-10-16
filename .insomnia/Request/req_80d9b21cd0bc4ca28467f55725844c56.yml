@@ -1,0 +1,30 @@
+_id: req_80d9b21cd0bc4ca28467f55725844c56
+type: Request
+parentId: wrk_877517df32e44731b0708aacc3a6132d
+modified: 1665912003675
+created: 1665435392670
+url: http://{{ _.host }}:{{ _.port }}/a.fo/event
+name: PlausibleFormat
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: '{"n":"pageview","u":"https://tokni.fo/home","d":"tokni.com","r":null,"w":2694}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_487cad5c212249158dff85a181e97606
+  - id: pair_7d480fa2eccc4587816b0b0757bbd252
+    name: Identifier
+    value: ""
+    description: ""
+authentication: {}
+metaSortKey: -1000000000
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
